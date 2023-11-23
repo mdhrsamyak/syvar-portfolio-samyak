@@ -1,0 +1,26 @@
+.main {
+  background: var(--gray-900, #000);
+  max-width: 1920px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-part {
+  height: 850px;
+  background-color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-part-text {
+  color: var(--gray-0, white);
+
+  font-family: Work Sans;
+  font-size: 100px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

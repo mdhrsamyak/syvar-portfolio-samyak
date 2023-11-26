@@ -8,6 +8,9 @@ function App() {
         <div className="top-part-text">Your Essence, Our Excellence:</div>
       </div>
       <SamyakPart1 />
+      <div className="top-part">
+        <div className="top-part-text">Your Essence, Our Excellence:</div>
+      </div>
     </div>
   );
 }

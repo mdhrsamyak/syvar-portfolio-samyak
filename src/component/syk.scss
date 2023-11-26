@@ -5,7 +5,8 @@
   flex-direction: row;
   justify-content: center;
   width: 100vw;
-  padding: 122px 0 54px;
+  padding: 142px 0 54px;
+  // border-radius: 80px 80px 0 0;
 
   .syk-left-side {
     max-width: 823px;
@@ -32,7 +33,7 @@
       margin-left: 12px;
 
       .syk-medium-text {
-        color: var(--color-blue-600, #278acd);
+        color: var(--color-gray-400, #afafaf);
         font-family: Work Sans;
         font-size: 26px;
         font-style: normal;
@@ -40,14 +41,15 @@
         line-height: normal;
 
         margin-bottom: 16px;
+        cursor: pointer;
       }
 
       .syk-textmargin {
         margin-top: 24px;
       }
 
-      .syk-gray-text {
-        color: var(--color-gray-400, #afafaf);
+      .syk-blue-text {
+        color: var(--color-blue-600, #278acd);
       }
 
       .syk-small-text {

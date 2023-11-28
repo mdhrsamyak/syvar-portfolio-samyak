@@ -3,30 +3,18 @@ import "./syk.scss";
 import image1 from "./images/images.jpeg";
 import image2 from "./images/img2.jpeg";
 import image3 from "./images/img3.jpeg";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import {
   motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
+  AnimatePresence,
+  useMotionValue,
+  useAnimation,
 } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 
 function SamyakPart1() {
   const [activeTitle, setActiveTitle] = useState("strategy");
-
-  // const { scrollYProgress } = useScroll();
-
-  // useMotionValueEvent(scrollYProgress, "change", (latest) => {
-  //   console.log("Page scroll: ", latest);
-  //   console.log(scrollYProgress);
-  // });
-
-  // useEffect(() => {
-  //   // Calculate the dynamic width based on scroll progress
-  //   const dynamicWidth = 80 + scrollYProgress.current * 20;
-
-  //   // Set the width with the controls
-  //   controls.start({ width: `${dynamicWidth}vw` });
-  // }, [scrollYProgress, controls]);
 
   const ref = useRef(null);
 
@@ -46,9 +34,12 @@ function SamyakPart1() {
 
   const transition = { duration: 0.5, ease: "easeInOut" };
 
+  useEffect(() => {
+    Aos.init();
+  }, []);
+
   return (
     <>
-      {/* Strategy */}
       <motion.div
         ref={ref}
         className="syk-main-container"
@@ -60,20 +51,14 @@ function SamyakPart1() {
       >
         <div className="syk-left-side">
           <div className="syk-main-text">
-            Speed up development and innovation with product team
+            Speed up development and innovation with the product team
           </div>
           <div className="syk-strategy">
-            {activeTitle === "strategy" && (
+            {activeTitle === "strategy" ? (
               <>
-                <motion.div
-                  className="syk-medium-text syk-blue-text"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={transition}
-                >
+                <div className="syk-medium-text syk-textmargin syk-blue-text">
                   Strategy
-                </motion.div>
+                </div>
                 <motion.div
                   className="syk-small-text"
                   initial={{ opacity: 0, y: 20 }}
@@ -82,32 +67,37 @@ function SamyakPart1() {
                   transition={transition}
                 >
                   We create responsive websites and apps that look and work
-                  great on computers, tablets and mobile devices. We develop
-                  rich internet applications in iOS, Android and Windows
+                  great on computers, tablets, and mobile devices. We develop
+                  rich internet applications in iOS, Android, and Windows
                 </motion.div>
               </>
-              // ) : (
+            ) : (
+              <>
+                <div
+                  className="syk-medium-text syk-textmargin"
+                  onClick={() => setActiveTitle("strategy")}
+                >
+                  Strategy
+                </div>
+              </>
             )}
-            <>
-              <div
-                className="syk-medium-text"
-                onClick={() => setActiveTitle("strategy")}
-              >
-                Strategy
-              </div>
-            </>
-            {/* )} */}
 
             {activeTitle === "design" ? (
               <>
                 <div className="syk-medium-text syk-textmargin syk-blue-text">
                   Design
                 </div>
-                <div className="syk-small-text">
+                <motion.div
+                  className="syk-small-text"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={transition}
+                >
                   We create responsive websites and apps that look and work
-                  great on computers, tablets and mobile devices. We develop
-                  rich internet applications in iOS, Android and Windows
-                </div>
+                  great on computers, tablets, and mobile devices. We develop
+                  rich internet applications in iOS, Android, and Windows
+                </motion.div>
               </>
             ) : (
               <>
@@ -124,11 +114,17 @@ function SamyakPart1() {
                 <div className="syk-medium-text syk-textmargin syk-blue-text">
                   &lt;/Develop&gt;
                 </div>
-                <div className="syk-small-text">
+                <motion.div
+                  className="syk-small-text"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={transition}
+                >
                   We create responsive websites and apps that look and work
-                  great on computers, tablets and mobile devices. We develop
-                  rich internet applications in iOS, Android and Windows
-                </div>
+                  great on computers, tablets, and mobile devices. We develop
+                  rich internet applications in iOS, Android, and Windows
+                </motion.div>
               </>
             ) : (
               <>
@@ -143,14 +139,16 @@ function SamyakPart1() {
           </div>
         </div>
         <div className="syk-right-side">
-          <div className="syk-image-container">
-            {activeTitle === "strategy" ? (
-              <img src={image1} />
-            ) : activeTitle === "design" ? (
-              <img src={image2} />
-            ) : (
-              <img src={image3} />
-            )}
+          <div className="syk-image-container" data-aos="zoom-in">
+            <img
+              src={
+                activeTitle === "strategy"
+                  ? image1
+                  : activeTitle === "design"
+                  ? image2
+                  : image3
+              }
+            />
           </div>
         </div>
       </motion.div>

@@ -5,31 +5,48 @@ import image2 from "./images/img2.jpeg";
 import image3 from "./images/img3.jpeg";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useAnimation,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 
 function SamyakPart1() {
   const [activeTitle, setActiveTitle] = useState("strategy");
 
   const ref = useRef(null);
+  const ref2 = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["0 1", "0.8 1"],
+    offset: ["0 1", "0.9 1"],
   });
 
-  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const borderProgress = useTransform(scrollYProgress, [0, 1], [160, -1]);
+  // const { scrollYProgress2 } = useScroll({
+  //   target: ref2,
+  // });
+
+  const scaleProgress = useTransform(scrollYProgress, [0.2, 0.4], [0.8, 1]);
+  const opacityProgress = useTransform(scrollYProgress, [0.2, 0.4], [0.8, 1]);
+  const borderProgress = useTransform(scrollYProgress, [0.2, 0.4], [160, -1]);
+
+  // useEffect(() => {
+  //   console.log(scrollYProgress2);
+  // }, [scrollYProgress2]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     console.log("Page scroll: ", latest);
-    // console.log(scrollYProgress);
+    if (latest > 0.78 && latest < 1) {
+      setIsSticky(true);
+      if (latest < 0.7) {
+        setActiveTitle("strategy");
+      } else if (latest > 0.7 && latest <= 0.9) {
+        setActiveTitle("design");
+      } else if (latest > 0.9) {
+        setActiveTitle("develop");
+      }
+    } else {
+      setIsSticky(false);
+    }
+    // console.log(scrollYProgress.current);
   });
 
   const transition = { duration: 0.5, ease: "easeInOut" };
@@ -38,17 +55,21 @@ function SamyakPart1() {
     Aos.init();
   }, []);
 
+  useEffect(() => {
+    console.log(isSticky);
+  }, [isSticky]);
+
   return (
-    <>
+    <motion.div ref={ref}>
       <motion.div
-        ref={ref}
-        className="syk-main-container"
+        className={`syk-main-container ${isSticky ? "sticky" : ""}`}
         style={{
           scale: scaleProgress,
           opacity: opacityProgress,
           borderRadius: borderProgress,
         }}
       >
+        {/* <div className={`syk-main-content ${isSticky ? "sticky" : ""}`}> */}
         <div className="syk-left-side">
           <div className="syk-main-text">
             Speed up development and innovation with the product team
@@ -151,8 +172,10 @@ function SamyakPart1() {
             />
           </div>
         </div>
+        {/* </div> */}
       </motion.div>
-    </>
+      {/* <div className="syk-extra-bottom"></div> */}
+    </motion.div>
   );
 }
 

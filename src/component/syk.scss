@@ -1,12 +1,33 @@
 .syk-main-container {
   background: #21232d;
-  height: 705px;
+  position: relative;
+  height: 800px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100vw;
   padding: 142px 0 54px;
-  // border-radius: 80px 80px 0 0;
+  border-radius: 160px 160px 0 0;
+
+  // .syk-main-content {
+  //   position: relative;
+  //   display: flex;
+  //   background-color: #21232d;
+  //   flex-direction: row;
+  //   justify-content: center;
+  //   // height: 2115px;
+  //   // width: 100vw;
+  //   padding: 142px 0 54px;
+  //   border-radius: 160px 160px 0 0;
+
+  &.sticky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // width: 100%;
+    border-radius: 0;
+    /* Add any other styles for the sticky state */
+  }
 
   .syk-left-side {
     max-width: 823px;
@@ -81,4 +102,11 @@
       }
     }
   }
+}
+// }
+
+.syk-extra-bottom {
+  height: 1px;
+  background: #21232d;
+  width: 100vw;
 }

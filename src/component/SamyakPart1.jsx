@@ -12,8 +12,7 @@ function SamyakPart1() {
   const [activeTitle, setActiveTitle] = useState("strategy");
 
   const ref = useRef(null);
-  const ref2 = useRef(null);
-  const [isSticky, setIsSticky] = useState(false);
+  const [currentImage, setCurrentImage] = useState("");
 
   const { scrollYProgress } = useScroll({
     target: document.body,
@@ -21,32 +20,27 @@ function SamyakPart1() {
     offset: ["start start", "end start"],
   });
 
-  // const { scrollYProgress2 } = useScroll({
-  //   target: ref2,
-  // });
-
   const scaleProgress = useTransform(scrollYProgress, [0, 0.15], [0.8, 1]);
   const opacityProgress = useTransform(scrollYProgress, [0, 0.15], [0.8, 1]);
   const borderProgress = useTransform(scrollYProgress, [0, 0.15], [160, 0]);
 
-  // useEffect(() => {
-  //   console.log(scrollYProgress2);
-  // }, [scrollYProgress2]);
+  const popOutAnimation = {
+    scale: [0.8, 1.2, 1],
+    opacity: [0, 1],
+    transition: { duration: 0.1, ease: "easeInOut" },
+  };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("Page scroll: ", latest);
-    if (latest > 0.2964724534284582 && latest < 1) {
-      setIsSticky(true);
-      if (latest < 0.7) {
-        setActiveTitle("strategy");
-      } else if (latest > 0.7 && latest <= 0.9) {
-        setActiveTitle("design");
-      } else if (latest > 0.9) {
-        setActiveTitle("develop");
-      }
+    if (latest < 0.33552482430287917) {
+      setActiveTitle("strategy");
+    } else if (latest > 0.33552482430287917 && latest < 0.522103831330764) {
+      setActiveTitle("design");
+      console.log("design");
+    } else if (latest > 0.522103831330764) {
+      setActiveTitle("develop");
     } else {
-      setIsSticky(false);
     }
+    console.log("Page scroll: ", latest);
     console.log(scrollYProgress.current);
   });
 
@@ -56,21 +50,41 @@ function SamyakPart1() {
     Aos.init();
   }, []);
 
+  // switch (activeTitle) {
+  //   case "strategy":
+  //     setCurrentImage(image1);
+  //     break;
+  //   case "design":
+  //     setCurrentImage(image2);
+  //     break;
+  //   case "develop":
+  //     setCurrentImage(image3);
+  //     break;
+  //   default:
+  //     setCurrentImage("");
+  //     break;
+  // }
+
   useEffect(() => {
-    console.log(isSticky);
-  }, [isSticky]);
+    if (activeTitle === "strategy") {
+      setCurrentImage(image1);
+    } else if (activeTitle === "design") {
+      setCurrentImage(image2);
+    } else {
+      setCurrentImage(image3);
+    }
+  }, [activeTitle]);
 
   return (
-    <motion.div ref={ref}>
+    <div ref={ref} className="background-scroll">
       <motion.div
-        className={`syk-main-container ${isSticky ? "sticky" : ""}`}
+        className="syk-main-container"
         style={{
           scale: scaleProgress,
           opacity: opacityProgress,
           borderRadius: borderProgress,
         }}
       >
-        {/* <div className={`syk-main-content ${isSticky ? "sticky" : ""}`}> */}
         <div className="syk-left-side">
           <div className="syk-main-text">
             Speed up development and innovation with the product team
@@ -161,25 +175,14 @@ function SamyakPart1() {
           </div>
         </div>
         <div className="syk-right-side">
-          <div
-            className="syk-image-container"
-            // data-aos="zoom-in"
+          <motion.div
+            className={`syk-image-container ${currentImage ? "pop-out" : ""}`}
           >
-            <img
-              src={
-                activeTitle === "strategy"
-                  ? image1
-                  : activeTitle === "design"
-                  ? image2
-                  : image3
-              }
-            />
-          </div>
+            {currentImage && <img src={currentImage} />}
+          </motion.div>
         </div>
-        {/* </div> */}
       </motion.div>
-      {/* <div className="syk-extra-bottom"></div> */}
-    </motion.div>
+    </div>
   );
 }
 

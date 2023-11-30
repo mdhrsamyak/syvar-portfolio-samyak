@@ -8,7 +8,7 @@
 }
 
 .top-part {
-  height: 750px;
+  height: 80vh;
   background-color: var(--black);
   display: flex;
   justify-content: center;

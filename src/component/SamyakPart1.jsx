@@ -16,17 +16,18 @@ function SamyakPart1() {
   const [isSticky, setIsSticky] = useState(false);
 
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["0 1", "0.9 1"],
+    target: document.body,
+    // offset: [0, "100%"],
+    offset: ["start start", "end start"],
   });
 
   // const { scrollYProgress2 } = useScroll({
   //   target: ref2,
   // });
 
-  const scaleProgress = useTransform(scrollYProgress, [0.2, 0.4], [0.8, 1]);
-  const opacityProgress = useTransform(scrollYProgress, [0.2, 0.4], [0.8, 1]);
-  const borderProgress = useTransform(scrollYProgress, [0.2, 0.4], [160, -1]);
+  const scaleProgress = useTransform(scrollYProgress, [0, 0.15], [0.8, 1]);
+  const opacityProgress = useTransform(scrollYProgress, [0, 0.15], [0.8, 1]);
+  const borderProgress = useTransform(scrollYProgress, [0, 0.15], [160, 0]);
 
   // useEffect(() => {
   //   console.log(scrollYProgress2);
@@ -34,7 +35,7 @@ function SamyakPart1() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     console.log("Page scroll: ", latest);
-    if (latest > 0.78 && latest < 1) {
+    if (latest > 0.2964724534284582 && latest < 1) {
       setIsSticky(true);
       if (latest < 0.7) {
         setActiveTitle("strategy");
@@ -46,7 +47,7 @@ function SamyakPart1() {
     } else {
       setIsSticky(false);
     }
-    // console.log(scrollYProgress.current);
+    console.log(scrollYProgress.current);
   });
 
   const transition = { duration: 0.5, ease: "easeInOut" };
@@ -160,7 +161,10 @@ function SamyakPart1() {
           </div>
         </div>
         <div className="syk-right-side">
-          <div className="syk-image-container" data-aos="zoom-in">
+          <div
+            className="syk-image-container"
+            // data-aos="zoom-in"
+          >
             <img
               src={
                 activeTitle === "strategy"

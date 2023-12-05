@@ -31,12 +31,12 @@ function SamyakPart1() {
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.33552482430287917) {
+    if (latest < 0.3197754749568221) {
       setActiveTitle("strategy");
-    } else if (latest > 0.33552482430287917 && latest < 0.522103831330764) {
+    } else if (latest > 0.3197754749568221 && latest < 0.4346286701208981) {
       setActiveTitle("design");
       console.log("design");
-    } else if (latest > 0.522103831330764) {
+    } else if (latest > 0.4346286701208981) {
       setActiveTitle("develop");
     } else {
     }
@@ -44,7 +44,7 @@ function SamyakPart1() {
     console.log(scrollYProgress.current);
   });
 
-  const transition = { duration: 0.5, ease: "easeInOut" };
+  const transition = { duration: 1, ease: "easeInOut" };
 
   useEffect(() => {
     Aos.init();

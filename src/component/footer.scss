@@ -1,0 +1,109 @@
+.syk-footer-main-container {
+  width: 100%;
+  height: auto;
+
+  .syk-footer-content {
+    display: flex;
+    flex-direction: column;
+    padding: 94px 130px 50px;
+
+    .syk-footer-title {
+      color: var(--gray-0, #fff);
+      font-size: 100px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      padding-bottom: 62px;
+    }
+
+    .syk-footer-string-line {
+      height: 1px;
+      width: 100%;
+      position: relative;
+
+      svg {
+        width: 100%;
+        height: 500px;
+        position: absolute;
+        top: -250px;
+
+        path {
+          stroke: white;
+          stroke-width: 1px;
+          fill: none;
+          width: 100%;
+        }
+      }
+
+      .syk-box {
+        height: 40px;
+        width: 100%;
+        position: relative;
+        top: -20px;
+        z-index: 1;
+      }
+
+      .syk-box:hover {
+        height: 500px;
+        top: -250px;
+      }
+    }
+
+    .syk-footer-mid-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 20px;
+      width: 100%;
+
+      .syk-footer-left-section {
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+
+        .syk-footer-text {
+          color: #989898;
+          font-family: Work Sans;
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      .syk-footer-right-section {
+        width: 50%;
+        padding-top: 69px;
+        padding-bottom: 262px;
+        display: flex;
+        justify-content: flex-end;
+
+        .syk-footer-right-button {
+          color: #649fe4;
+          font-size: 100px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+
+          width: 648px;
+        }
+      }
+    }
+    .syk-footer-bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .syk-footer-bottom-left {
+        color: #989898;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+
+      .syk-footer-bottom-right {
+      }
+    }
+  }
+}

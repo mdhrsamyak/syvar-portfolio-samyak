@@ -14,6 +14,8 @@ function SamyakPart1() {
   const ref = useRef(null);
   const [currentImage, setCurrentImage] = useState("");
 
+  const isSmallScreen = window.innerWidth < 821;
+
   const { scrollYProgress } = useScroll({
     target: document.body,
     // offset: [0, "100%"],
@@ -24,24 +26,18 @@ function SamyakPart1() {
   const opacityProgress = useTransform(scrollYProgress, [0, 0.15], [0.8, 1]);
   const borderProgress = useTransform(scrollYProgress, [0, 0.15], [160, 0]);
 
-  const popOutAnimation = {
-    scale: [0.8, 1.2, 1],
-    opacity: [0, 1],
-    transition: { duration: 0.1, ease: "easeInOut" },
-  };
-
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.3197754749568221) {
       setActiveTitle("strategy");
     } else if (latest > 0.3197754749568221 && latest < 0.4346286701208981) {
       setActiveTitle("design");
-      console.log("design");
     } else if (latest > 0.4346286701208981) {
       setActiveTitle("develop");
     } else {
     }
-    console.log("Page scroll: ", latest);
-    console.log(scrollYProgress.current);
+
+    // console.log("Page scroll: ", latest);
+    // console.log(scrollYProgress.current);
   });
 
   const transition = { duration: 1, ease: "easeInOut" };
@@ -49,21 +45,6 @@ function SamyakPart1() {
   useEffect(() => {
     Aos.init();
   }, []);
-
-  // switch (activeTitle) {
-  //   case "strategy":
-  //     setCurrentImage(image1);
-  //     break;
-  //   case "design":
-  //     setCurrentImage(image2);
-  //     break;
-  //   case "develop":
-  //     setCurrentImage(image3);
-  //     break;
-  //   default:
-  //     setCurrentImage("");
-  //     break;
-  // }
 
   useEffect(() => {
     if (activeTitle === "strategy") {
@@ -74,6 +55,21 @@ function SamyakPart1() {
       setCurrentImage(image3);
     }
   }, [activeTitle]);
+
+  const renderImageContainer = () => {
+    return (
+      <motion.div
+        key={activeTitle}
+        className="syk-image-container"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={transition}
+      >
+        {currentImage && <img src={currentImage} />}
+      </motion.div>
+    );
+  };
 
   return (
     <div ref={ref} className="background-scroll">
@@ -106,6 +102,19 @@ function SamyakPart1() {
                   great on computers, tablets, and mobile devices. We develop
                   rich internet applications in iOS, Android, and Windows
                 </motion.div>
+                {isSmallScreen && (
+                  <div className="syk-right-side">
+                    <motion.div
+                      className="syk-image-container"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={transition}
+                    >
+                      {currentImage && <img src={currentImage} />}
+                    </motion.div>
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -134,6 +143,19 @@ function SamyakPart1() {
                   great on computers, tablets, and mobile devices. We develop
                   rich internet applications in iOS, Android, and Windows
                 </motion.div>
+                {isSmallScreen && (
+                  <div className="syk-right-side">
+                    <motion.div
+                      className="syk-image-container"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={transition}
+                    >
+                      {currentImage && <img src={currentImage} />}
+                    </motion.div>
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -161,6 +183,19 @@ function SamyakPart1() {
                   great on computers, tablets, and mobile devices. We develop
                   rich internet applications in iOS, Android, and Windows
                 </motion.div>
+                {isSmallScreen && (
+                  <div className="syk-right-side">
+                    <motion.div
+                      className="syk-image-container"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={transition}
+                    >
+                      {currentImage && <img src={currentImage} />}
+                    </motion.div>
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -174,13 +209,9 @@ function SamyakPart1() {
             )}
           </div>
         </div>
-        <div className="syk-right-side">
-          <motion.div
-            className={`syk-image-container ${currentImage ? "pop-out" : ""}`}
-          >
-            {currentImage && <img src={currentImage} />}
-          </motion.div>
-        </div>
+        {!isSmallScreen && (
+          <div className="syk-right-side">{renderImageContainer()}</div>
+        )}
       </motion.div>
     </div>
   );

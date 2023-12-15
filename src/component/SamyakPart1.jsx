@@ -36,7 +36,7 @@ function SamyakPart1() {
     } else {
     }
 
-    console.log("Page scroll: ", latest);
+    // console.log("Page scroll: ", latest);
     // console.log(scrollYProgress.current);
   });
 

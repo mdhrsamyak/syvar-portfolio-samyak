@@ -1,6 +1,11 @@
 import { React, useRef, useEffect, useState } from "react";
 import "./footer.scss";
-import { easeInOut, motion, useAnimationControls } from "framer-motion";
+import {
+  AnimatePresence,
+  easeInOut,
+  motion,
+  useAnimationControls,
+} from "framer-motion";
 import { GoArrowRight } from "react-icons/go";
 import { RiInstagramFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
@@ -23,7 +28,7 @@ function SamyakFooter() {
 
   const setPath = (progress) => {
     const width = window.innerWidth * 0.85;
-    path.current.setAttributeNS(
+    path.current.setAttribute(
       null,
       "d",
       `M0 250 Q${width * x} ${250 + progress}, ${width} 250`
@@ -41,8 +46,8 @@ function SamyakFooter() {
 
   const manageMouseMove = (e) => {
     const { movementY, clientX } = e;
-    console.log(movementY);
-    console.log(clientX);
+    // console.log(movementY);
+    // console.log(clientX);
     const pathBound = path.current.getBoundingClientRect();
     x = (clientX - pathBound.left) / pathBound.width;
     progress += movementY;
@@ -81,6 +86,18 @@ function SamyakFooter() {
     //   x: "0px",
     // });
   }
+
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseOver = (e) => {
+    const x = (e.pageX - e.target.offsetLeft) / 10;
+    const y = (e.pageY - e.target.offsetTop) / 100;
+    setPosition({ x, y });
+  };
+
+  useEffect(() => {
+    console.log(`x: ${position.x}, y: ${position.y}`);
+  }, [position]);
 
   return (
     <div className="syk-footer-main-container">
@@ -127,10 +144,10 @@ function SamyakFooter() {
             </div>
             <div className="syk-footer-left-bottom">
               <FramerMagnetic>
-                <RiInstagramFill />
+                <FaFacebookF />
               </FramerMagnetic>
               <FramerMagnetic>
-                <FaFacebookF />
+                <RiInstagramFill />
               </FramerMagnetic>
               <FramerMagnetic>
                 <FaLinkedinIn />
@@ -138,7 +155,12 @@ function SamyakFooter() {
             </div>
           </div>
           {showForm ? (
-            <motion.div className="syk-footer-right-form">
+            <motion.div
+              className="syk-footer-right-form"
+              initial={{ scale: 0.9 }}
+              // animate={{ x: 0, opacity: 1 }}
+              // transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
               <div className="syk-input-bar">
                 <input type="text" placeholder="name"></input>
               </div>
@@ -155,12 +177,21 @@ function SamyakFooter() {
                 ></input>
               </div>
               <div className="syk-form-submit">
-                <button>Send</button>
+                <a
+                  className="btn"
+                  onMouseMove={handleMouseOver}
+                  style={{ "--x": `${position.x}px`, "--y": `${position.y}px` }}
+                >
+                  <span>Send</span>
+                </a>
               </div>
             </motion.div>
           ) : (
             <motion.div
               className="syk-footer-right-section"
+              initial={{ scale: 1, x: 100 }}
+              whileInView={{ x: 0 }}
+              transition={{ duration: 1, easeInOut }}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={() => {
                 setTransformX("0");
@@ -168,18 +199,19 @@ function SamyakFooter() {
               whileHover={{ scale: 1.1 }}
               onClick={handleRightButton}
             >
-              <div className="syk-footer-right-button">
-                Let's Work Together{" "}
-                <div>
-                  <GoArrowRight
-                    style={{
-                      transform: `translateX(${TransformX})`,
-                      transition: "0.5s ease-in-out",
-                    }}
-                  />
-                </div>
-              </div>
-              {/* <motion.div animate={controls}></motion.div> */}
+              <AnimatePresence>
+                <motion.div className="syk-footer-right-button">
+                  Let's Work Together{" "}
+                  <div>
+                    <GoArrowRight
+                      style={{
+                        transform: `translateX(${TransformX})`,
+                        transition: "0.5s ease-in-out",
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
           )}
         </div>
@@ -190,10 +222,6 @@ function SamyakFooter() {
           <div className="syk-footer-bottom-right">LOGOS</div>
         </div>
       </div>
-
-      <Test>
-        <div style={{ color: "white" }}>Hello from test</div>
-      </Test>
     </div>
   );
 }

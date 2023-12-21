@@ -1,6 +1,21 @@
+//Variables
+$title-white: var(--gray-0, #fff);
+
 .syk-footer-main-container {
   width: 100%;
   height: auto;
+
+  // .syk-cursor {
+  //   background-color: none;
+  //   height: 32px;
+  //   width: 32px;
+  //   border-radius: 50%;
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   pointer-events: none;
+  //   z-index: 102;
+  // }
 
   .syk-footer-content {
     display: flex;
@@ -8,7 +23,7 @@
     padding: 94px 130px 50px;
 
     .syk-footer-title {
-      color: var(--gray-0, #fff);
+      color: $title-white;
       font-size: 100px;
       font-style: normal;
       font-weight: 400;
@@ -17,7 +32,7 @@
     }
 
     .syk-footer-string-line {
-      height: 1px;
+      height: 2px;
       width: 100%;
       position: relative;
 
@@ -28,8 +43,8 @@
         top: -250px;
 
         path {
-          stroke: white;
-          stroke-width: 1px;
+          stroke: rgba(255, 255, 255, 0.6);
+          stroke-width: 2px;
           fill: none;
         }
       }
@@ -163,51 +178,71 @@
             font-weight: 400;
             line-height: normal;
             outline: none;
-            overflow: hidden;
+            // overflow: hidden;
           }
 
           input:focus {
             border-bottom: 1px solid #ffb830;
           }
+
+          textarea {
+            background: black;
+            border-radius: 0;
+            border: none;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 24px;
+            color: white;
+            resize: none;
+            transition: border-color 150ms ease;
+            width: 100%;
+            outline: none;
+          }
+
+          textarea:hover {
+            border-color: #c6c6c6;
+          }
+
+          textarea:focus {
+            border-bottom: 1px solid #ffb830;
+          }
+
+          span {
+            color: rgba(255, 255, 255, 0.4);
+            font-family: Work Sans;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+            margin: 0px 0 0 3.6px;
+          }
         }
 
         .syk-form-submit {
           margin-top: 122px;
-          .btn {
-            position: relative;
-            display: inline-flex;
-            padding: 10px 30px;
-            background-color: #363636;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: 1px;
-            overflow: hidden;
+          // width: auto;
+          // position: relative;
 
-            &::before {
-              content: "";
-              position: absolute;
-              top: var(--y);
-              left: var(--x);
-              // top: 0;
-              // left: 0;
-              transform: translate(-50%, -50%);
-              width: 0px;
-              height: 0px;
-              border-radius: 50%;
-              background-color: blue;
-              transition: width 0.5s, height 0.5s;
-            }
+          // .btn {
+          //   position: relative;
+          //   display: inline-flex;
+          //   padding: 25px 80px;
+          //   background-color: black;
+          //   color: #fff;
+          //   text-decoration: none;
+          //   letter-spacing: 1px;
+          //   border-radius: var(--Corner-Radius-Corner-radius-40, 40px);
+          //   border: 1px solid var(--Gray-0, #fff);
+          //   cursor: none;
+          //   overflow: hidden;
 
-            &:hover::before {
-              width: 200px;
-              height: 200px;
-            }
-
-            span {
-              position: relative;
-              z-index: 1;
-            }
-          }
+          //   span {
+          //     position: relative;
+          //     z-index: 205;
+          //     cursor: none;
+          //   }
+          // }
         }
       }
     }

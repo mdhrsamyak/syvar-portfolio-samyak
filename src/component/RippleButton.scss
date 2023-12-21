@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+.btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 80px;
+  color: #fff;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  outline: none;
+  border: 1px solid white;
+  cursor: pointer;
+  // text-transform: uppercase;
+  box-sizing: border-box;
+
+  // ripple
+  &--ripple {
+    background: black;
+    overflow: hidden;
+
+    span {
+      position: absolute;
+      background: #fff;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border-radius: 50%;
+      animation: rippleAnimation 0.5s linear infinite;
+    }
+    @keyframes rippleAnimation {
+      0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.5;
+      }
+      // 100% {
+      //   width: 500px;
+      //   height: 500px;
+      //   opacity: 1;
+      // }
+    }
+  }
+  &:hover {
+    color: #000;
+  }
+}

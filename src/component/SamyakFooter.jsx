@@ -1,17 +1,14 @@
 import { React, useRef, useEffect, useState } from "react";
 import "./footer.scss";
-import {
-  AnimatePresence,
-  easeInOut,
-  motion,
-  useAnimationControls,
-} from "framer-motion";
+import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { GoArrowRight } from "react-icons/go";
 import { RiInstagramFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import FramerMagnetic from "./framer";
-import Test from "./Test";
+import RippleButton from "./RippleButton";
+import PrashantButton from "./PrashantButton";
+import useAutosizeTextArea from "./useAutosizeTextArea.ts";
 
 function SamyakFooter() {
   const [showForm, setShowForm] = useState(false);
@@ -27,8 +24,8 @@ function SamyakFooter() {
   }, []);
 
   const setPath = (progress) => {
-    const width = window.innerWidth * 0.85;
-    path.current.setAttribute(
+    const width = window.innerWidth * 0.86;
+    path.current.setAttributeNS(
       null,
       "d",
       `M0 250 Q${width * x} ${250 + progress}, ${width} 250`
@@ -46,8 +43,6 @@ function SamyakFooter() {
 
   const manageMouseMove = (e) => {
     const { movementY, clientX } = e;
-    // console.log(movementY);
-    // console.log(clientX);
     const pathBound = path.current.getBoundingClientRect();
     x = (clientX - pathBound.left) / pathBound.width;
     progress += movementY;
@@ -87,20 +82,72 @@ function SamyakFooter() {
     // });
   }
 
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseOver = (e) => {
-    const x = (e.pageX - e.target.offsetLeft) / 10;
-    const y = (e.pageY - e.target.offsetTop) / 100;
-    setPosition({ x, y });
+  // const handleMouseOver = (e) => {
+  //   const x = e.pageX - e.target.offsetLeft;
+  //   const y = e.pageY - e.target.offsetTop;
+  //   setPosition({ x, y });
+  // };
+
+  // useEffect(() => {
+  //   console.log(`x: ${position.x}, y: ${position.y}`);
+  // }, [position]);
+
+  const [mPosition, setmPosition] = useState({ x: 0, y: 0 });
+  const [cursorVariant, setCursorVariant] = useState("default");
+
+  // useEffect(() => {
+  //   const mouseMove = (e) => {
+  //     setmPosition({
+  //       x: e.clientX,
+  //       y: e.clientY,
+  //     });
+  //   };
+  //   window.addEventListener("mousemove", mouseMove);
+
+  //   return () => {
+  //     window.removeEventListener("mousemove", mouseMove);
+  //   };
+  // }, []);
+
+  // const [isHovered, setIsHovered] = useState(false);
+
+  // const MouseVariants = {
+  //   default: {
+  //     x: mPosition.x - 16,
+  //     y: mPosition.y - 16,
+  //   },
+  //   button: {
+  //     backgroundColor: "yellow",
+  //     x: mPosition.x - 150,
+  //     y: mPosition.y - 150,
+  //     height: 300,
+  //     width: 300,
+  //     mixBlendMode: "difference",
+  //   },
+  // };
+
+  const [value, setValue] = useState("");
+  const textAreaRef = useRef(null);
+
+  useAutosizeTextArea(textAreaRef.current, value);
+
+  const handleChange = (evt) => {
+    const inputValue = evt.target.value;
+
+    if (inputValue.length <= 300) {
+      setValue(inputValue);
+    }
   };
-
-  useEffect(() => {
-    console.log(`x: ${position.x}, y: ${position.y}`);
-  }, [position]);
 
   return (
     <div className="syk-footer-main-container">
+      {/* <motion.div
+        className="syk-cursor"
+        variants={MouseVariants}
+        animate={cursorVariant}
+      /> */}
       <div className="syk-footer-content">
         <div className="syk-footer-title">Got a project?</div>
 
@@ -155,10 +202,9 @@ function SamyakFooter() {
             </div>
           </div>
           {showForm ? (
-            <motion.div
+            <div
               className="syk-footer-right-form"
-              initial={{ scale: 0.9 }}
-              // animate={{ x: 0, opacity: 1 }}
+              // animate={{ scale: 0.9, opacity: 1, translateX: 0 }}
               // transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               <div className="syk-input-bar">
@@ -168,24 +214,29 @@ function SamyakFooter() {
                 <input type="email" placeholder="email"></input>
               </div>
               <div className="syk-input-bar">
-                <input type="number" placeholder="phone"></input>
+                <input type="tel" placeholder="phone"></input>
               </div>
               <div className="syk-input-bar">
-                <input
+                {/* <input
                   type="text"
                   placeholder="tell us about your project"
-                ></input>
+                ></input> */}
+                <textarea
+                  id="about-project"
+                  onChange={handleChange}
+                  placeholder="tell us about your project"
+                  ref={textAreaRef}
+                  rows={1}
+                  value={value}
+                />
+                <span>{value.length}/300</span>
               </div>
               <div className="syk-form-submit">
-                <a
-                  className="btn"
-                  onMouseMove={handleMouseOver}
-                  style={{ "--x": `${position.x}px`, "--y": `${position.y}px` }}
-                >
-                  <span>Send</span>
-                </a>
+                <PrashantButton />
+
+                {/* <RippleButton /> */}
               </div>
-            </motion.div>
+            </div>
           ) : (
             <motion.div
               className="syk-footer-right-section"

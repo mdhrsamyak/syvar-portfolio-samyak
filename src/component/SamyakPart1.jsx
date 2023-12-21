@@ -27,6 +27,7 @@ function SamyakPart1() {
   const borderProgress = useTransform(scrollYProgress, [0, 0.15], [160, 0]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log(latest);
     if (latest < 0.3197754749568221) {
       setActiveTitle("strategy");
     } else if (latest > 0.3197754749568221 && latest < 0.4346286701208981) {

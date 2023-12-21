@@ -1,4 +1,6 @@
 import "./App.css";
+import PrashantButton from "./component/PrashantButton";
+import RippleButton from "./component/RippleButton";
 import SamyakFooter from "./component/SamyakFooter";
 import SamyakPart1 from "./component/SamyakPart1";
 

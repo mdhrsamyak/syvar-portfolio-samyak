@@ -6,7 +6,6 @@ import { RiInstagramFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import FramerMagnetic from "./framer";
-import RippleButton from "./RippleButton";
 import PrashantButton from "./PrashantButton";
 import useAutosizeTextArea from "./useAutosizeTextArea.ts";
 
